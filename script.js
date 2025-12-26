@@ -40,11 +40,16 @@ function update() {
 
 // Draw everything
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Example player rectangle
-  ctx.fillStyle = "#22c55e";
-  ctx.fillRect(50, canvas.height / 2 - 25, 50, 50);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+    // TEMP example player (you can remove later)
+    ctx.fillStyle = "#22c55e";
+    ctx.fillRect(50, canvas.height / 2 - 25, 50, 50);
+  
+    // ✅ DRAW ALL GLOVES HERE
+    for (const glove of gloves) {
+      glove.draw(ctx);
+    }
 }
 
 // Start button
@@ -102,10 +107,16 @@ document.addEventListener("touchmove", (e) => {
 const spawnBtn = document.getElementById("glove-spawn");
 
 spawnBtn.addEventListener("click", () => {
-  const rect = canvas.getBoundingClientRect();
-  const glove = new Glove(rect.width / 2, rect.height / 2);
-  gloves.push(glove);
-});
+    const rect = canvas.getBoundingClientRect();
+    const glove = new Glove(rect.width / 2, rect.height / 2);
+    gloves.push(glove);
+  
+    // ✅ ensure rendering starts
+    if (!gameRunning) {
+      gameRunning = true;
+      gameLoop();
+    }
+  });
 
 function getPos(e) {
     const rect = canvas.getBoundingClientRect();
@@ -152,8 +163,4 @@ canvas.addEventListener("touchend", endDrag);
 function endDrag() {
   activeGlove = null;
 }
-
-for (const glove of gloves) {
-    glove.draw(ctx);
-  }
   
