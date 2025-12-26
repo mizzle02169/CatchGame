@@ -128,9 +128,6 @@ function getPos(e) {
     };
   }
 
-canvas.addEventListener("mousedown", startDrag);
-canvas.addEventListener("touchstart", startDrag);
-
 function startDrag(e) {
   const pos = getPos(e);
 
@@ -144,9 +141,6 @@ function startDrag(e) {
   }
 }
 
-canvas.addEventListener("mousemove", drag);
-canvas.addEventListener("touchmove", drag);
-
 function drag(e) {
   if (!activeGlove) return;
   e.preventDefault();
@@ -156,11 +150,44 @@ function drag(e) {
   activeGlove.y = pos.y - offsetY;
 }
 
-canvas.addEventListener("mouseup", endDrag);
-canvas.addEventListener("mouseleave", endDrag);
-canvas.addEventListener("touchend", endDrag);
-
 function endDrag() {
   activeGlove = null;
 }
   
+function getCanvasPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+}
+
+canvas.addEventListener("pointerdown", (e) => {
+    const pos = getCanvasPos(e);
+  
+    for (let i = gloves.length - 1; i >= 0; i--) {
+      if (gloves[i].contains(pos.x, pos.y)) {
+        activeGlove = gloves[i];
+        offsetX = pos.x - activeGlove.x;
+        offsetY = pos.y - activeGlove.y;
+        canvas.setPointerCapture(e.pointerId);
+        break;
+      }
+    }
+  });
+
+canvas.addEventListener("pointermove", (e) => {
+    if (!activeGlove) return;
+
+    const pos = getCanvasPos(e);
+    activeGlove.x = pos.x - offsetX;
+    activeGlove.y = pos.y - offsetY;
+    });
+
+canvas.addEventListener("pointerup", () => {
+    activeGlove = null;
+    });
+    
+    canvas.addEventListener("pointercancel", () => {
+    activeGlove = null;
+    });

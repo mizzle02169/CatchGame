@@ -38,6 +38,7 @@
     height: 100%;
     display: block;
     background: linear-gradient(#38bdf8, #0ea5e9);
+    touch-action: none;
   }
   
   /* UI Overlay */
