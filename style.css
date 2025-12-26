@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: #0f172a;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: system-ui, sans-serif;
+    color: white;
+  }
+  
+  /* Game container */
+  #game-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    background: #020617;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  /* Canvas fills game area */
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: linear-gradient(#38bdf8, #0ea5e9);
+  }
+  
+  /* UI Overlay */
+  #ui {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  
+  #startBtn {
+    pointer-events: auto;
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background: #22c55e;
+    color: black;
+    cursor: pointer;
+  }
+  
+  #score {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 18px;
+  }
+  
+  /* Mobile hint for portrait mode */
+  @media (orientation: portrait) {
+    body::before {
+      content: "Rotate your device for best experience";
+      position: fixed;
+      inset: 0;
+      background: #020617;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      text-align: center;
+      padding: 20px;
+    }
+  }
+  

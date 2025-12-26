@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Azure Game</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Landscape Browser Game</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>My Game is Live!</h1>
-  <p>If you see this, Azure is working 🎉</p>
+
+  <div id="game-wrapper">
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- UI Overlay -->
+    <div id="ui">
+      <button id="startBtn">Start</button>
+      <div id="score">Score: 0</div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
