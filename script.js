@@ -3,6 +3,10 @@ const ctx = canvas.getContext("2d");
 
 let gameRunning = false;
 let score = 0;
+const gloves = [];
+let activeGlove = null;
+let offsetX = 0;
+let offsetY = 0;
 
 // Resize canvas properly for all screens
 function resizeCanvas() {
@@ -69,3 +73,87 @@ canvas.addEventListener("touchstart", () => {
 document.addEventListener("touchmove", (e) => {
     e.preventDefault();
   }, { passive: false });
+
+  class Glove {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.radius = 30;
+    }
+  
+    draw(ctx) {
+      ctx.fillStyle = "#92400e";
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+  
+      // simple stitching
+      ctx.strokeStyle = "#facc15";
+      ctx.stroke();
+    }
+  
+    contains(px, py) {
+      const dx = px - this.x;
+      const dy = py - this.y;
+      return Math.sqrt(dx * dx + dy * dy) < this.radius;
+    }
+  }
+
+const spawnBtn = document.getElementById("glove-spawn");
+
+spawnBtn.addEventListener("click", () => {
+  const rect = canvas.getBoundingClientRect();
+  const glove = new Glove(rect.width / 2, rect.height / 2);
+  gloves.push(glove);
+});
+
+function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches ? e.touches[0] : e;
+  
+    return {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top
+    };
+  }
+
+canvas.addEventListener("mousedown", startDrag);
+canvas.addEventListener("touchstart", startDrag);
+
+function startDrag(e) {
+  const pos = getPos(e);
+
+  for (let i = gloves.length - 1; i >= 0; i--) {
+    if (gloves[i].contains(pos.x, pos.y)) {
+      activeGlove = gloves[i];
+      offsetX = pos.x - activeGlove.x;
+      offsetY = pos.y - activeGlove.y;
+      break;
+    }
+  }
+}
+
+canvas.addEventListener("mousemove", drag);
+canvas.addEventListener("touchmove", drag);
+
+function drag(e) {
+  if (!activeGlove) return;
+  e.preventDefault();
+
+  const pos = getPos(e);
+  activeGlove.x = pos.x - offsetX;
+  activeGlove.y = pos.y - offsetY;
+}
+
+canvas.addEventListener("mouseup", endDrag);
+canvas.addEventListener("mouseleave", endDrag);
+canvas.addEventListener("touchend", endDrag);
+
+function endDrag() {
+  activeGlove = null;
+}
+
+for (const glove of gloves) {
+    glove.draw(ctx);
+  }
+  

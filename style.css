@@ -83,4 +83,23 @@
       padding: 20px;
     }
   }
+
+  #glove-spawn {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: #a16207;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 5;
+    user-select: none;
+    touch-action: none;
+  }
   
