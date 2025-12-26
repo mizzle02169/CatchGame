@@ -6,11 +6,14 @@ let score = 0;
 
 // Resize canvas properly for all screens
 function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  canvas.width = rect.width * devicePixelRatio;
-  canvas.height = rect.height * devicePixelRatio;
-  ctx.scale(devicePixelRatio, devicePixelRatio);
-}
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+  
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+  
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
@@ -62,3 +65,7 @@ canvas.addEventListener("touchstart", () => {
   gameRunning = !gameRunning;
   if (gameRunning) gameLoop();
 });
+
+document.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+  }, { passive: false });
