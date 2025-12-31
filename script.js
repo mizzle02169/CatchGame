@@ -42,10 +42,6 @@ function update() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-    // TEMP example player (you can remove later)
-    ctx.fillStyle = "#22c55e";
-    ctx.fillRect(50, canvas.height / 2 - 25, 50, 50);
-  
     // ✅ DRAW ALL GLOVES HERE
     for (const glove of gloves) {
       glove.draw(ctx);
@@ -87,14 +83,32 @@ document.addEventListener("touchmove", (e) => {
     }
   
     draw(ctx) {
-      ctx.fillStyle = "#92400e";
+      ctx.save();
+      ctx.translate(this.x, this.y);
+  
+      // glove body
+      ctx.fillStyle = "#7c3f1d"; // brown leather
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.arc(0, 0, this.radius, Math.PI * 0.2, Math.PI * 1.8);
+      ctx.lineTo(this.radius * 0.8, this.radius * 0.8);
+      ctx.lineTo(this.radius * 0.6, this.radius * -0.8);
+      ctx.closePath();
       ctx.fill();
   
-      // simple stitching
+      // glove pocket
+      ctx.fillStyle = "#5a2e14";
+      ctx.beginPath();
+      ctx.arc(0, 0, this.radius * 0.6, Math.PI * 0.3, Math.PI * 1.7);
+      ctx.fill();
+  
+      // stitching
       ctx.strokeStyle = "#facc15";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(0, 0, this.radius * 0.75, Math.PI * 0.3, Math.PI * 1.7);
       ctx.stroke();
+  
+      ctx.restore();
     }
   
     contains(px, py) {
