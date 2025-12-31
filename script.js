@@ -72,13 +72,11 @@ function draw() {
 function moveLeft() {
   if (currentLane > 0) 
     currentLane--;
-    player.x = lanes[currentLane];
 }
 
 function moveRight() {
   if (currentLane < 2) 
     currentLane++;
-    player.x = lanes[currentLane];
 }
 
 // --- KEYBOARD INPUT ---
@@ -92,9 +90,9 @@ canvas.addEventListener("click", (e) => {
   const rect = canvas.getBoundingClientRect();
   const clickX = e.clientX;
 
-  if (clickX < player.x) {
+  if (clickX < player.x - player.width / 2) {
     moveLeft();
-  } else if (clickX > player.x) {
+  } else if (clickX > player.x - player.width / 2) {
     moveRight();
   }
 });
