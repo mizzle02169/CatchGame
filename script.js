@@ -13,10 +13,10 @@ carImg.onload = () => {
 };
 
 const player = {
-  width: 40,
+  width: 50,
   height: 60,
   x: lanes[currentLane],
-  y: canvas.height - 100,
+  y: canvas.height - 20, // temporary, will adjust below
 };
 
 let speed = 4;
@@ -31,6 +31,7 @@ function gameLoop() {
 // --- UPDATE ---
 function update() {
   player.x = lanes[currentLane];
+  player.y = canvas.height - player.height - 20;
 }
 
 // --- DRAW ---
@@ -85,11 +86,11 @@ window.addEventListener("keydown", (e) => {
 // --- MOUSE INPUT ---
 canvas.addEventListener("click", (e) => {
   const rect = canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left;
+  const clickX = e.clientX - rect.left;
 
-  if (x < canvas.width / 2) {
+  if (clickX < player.x) {
     moveLeft();
-  } else {
+  } else if (clickX > player.x) {
     moveRight();
   }
 });
