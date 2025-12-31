@@ -89,19 +89,20 @@ window.addEventListener("keydown", (e) => {
 canvas.addEventListener("click", (e) => {
   const rect = canvas.getBoundingClientRect();
 
-  // Convert mouse click to CANVAS coordinates
-  const clickX = e.clientX - rect.left;
+  // Scale factor between CSS size and canvas internal size
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
 
-  // Player center in canvas space
+  // Convert click to canvas coordinates
+  const clickX = (e.clientX - rect.left) * scaleX;
+  const clickY = (e.clientY - rect.top) * scaleY;
+
+  console.log("Canvas click X:", clickX, "Canvas click Y:", clickY);
+
   const carX = player.x;
 
-  console.log("Click X:", clickX, "Car X:", carX);
-
-  if (clickX < carX) {
-    moveLeft();
-  } else if (clickX > carX) {
-    moveRight();
-  }
+  if (clickX < carX) moveLeft();
+  else if (clickX > carX) moveRight();
 });
 
 // --- TOUCH / SWIPE INPUT ---
