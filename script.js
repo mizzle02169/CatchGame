@@ -88,11 +88,16 @@ window.addEventListener("keydown", (e) => {
 // --- MOUSE INPUT ---
 canvas.addEventListener("click", (e) => {
   const rect = canvas.getBoundingClientRect();
-  const clickX = e.clientX;
 
-  if (clickX < player.x - player.width / 2) {
+  // Convert mouse click to CANVAS coordinates
+  const clickX = e.clientX - rect.left;
+
+  // Player center in canvas space
+  const carX = player.x;
+
+  if (clickX < carX) {
     moveLeft();
-  } else if (clickX > player.x - player.width / 2) {
+  } else if (clickX > carX) {
     moveRight();
   }
 });
