@@ -95,6 +95,8 @@ canvas.addEventListener("click", (e) => {
   // Player center in canvas space
   const carX = player.x;
 
+  console.log("Click X:", clickX, "Car X:", carX);
+
   if (clickX < carX) {
     moveLeft();
   } else if (clickX > carX) {
