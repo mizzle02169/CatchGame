@@ -13,10 +13,10 @@ carImg.onload = () => {
 };
 
 const player = {
-  width: 50,
-  height: 60,
+  width: 30,
+  height: 50,
   x: lanes[currentLane],
-  y: canvas.height - 20, // temporary, will adjust below
+  y: canvas.height - 40, // temporary, will adjust below
 };
 
 let speed = 4;
