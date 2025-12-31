@@ -90,7 +90,7 @@ window.addEventListener("keydown", (e) => {
 // --- MOUSE INPUT ---
 canvas.addEventListener("click", (e) => {
   const rect = canvas.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
+  const clickX = e.clientX;
 
   if (clickX < player.x) {
     moveLeft();
