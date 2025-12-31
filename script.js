@@ -70,11 +70,15 @@ function draw() {
 
 // --- MOVE LANES ---
 function moveLeft() {
-  if (currentLane > 0) currentLane--;
+  if (currentLane > 0) 
+    currentLane--;
+    player.x = lanes[currentLane];
 }
 
 function moveRight() {
-  if (currentLane < 2) currentLane++;
+  if (currentLane < 2) 
+    currentLane++;
+    player.x = lanes[currentLane];
 }
 
 // --- KEYBOARD INPUT ---
