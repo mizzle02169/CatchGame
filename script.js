@@ -4,6 +4,14 @@ const ctx = canvas.getContext("2d");
 const lanes = [canvas.width / 6, canvas.width / 2, (canvas.width * 5) / 6];
 let currentLane = 1; // middle lane
 
+const carImg = new Image();
+carImg.src = "Car_1_01.png";
+let carLoaded = false;
+
+carImg.onload = () => {
+  carLoaded = true;
+};
+
 const player = {
   width: 40,
   height: 60,
@@ -39,14 +47,24 @@ function draw() {
     ctx.stroke();
   }
 
-  // player
-  ctx.fillStyle = "#22c55e";
-  ctx.fillRect(
-    player.x - player.width / 2,
-    player.y,
-    player.width,
-    player.height
-  );
+  if (carLoaded) {
+    ctx.drawImage(
+      carImg,
+      player.x - player.width / 2,
+      player.y,
+      player.width,
+      player.height
+    );
+  } else {
+    // fallback while image loads
+    ctx.fillStyle = "#a16207";
+    ctx.fillRect(
+      player.x - player.width / 2,
+      player.y,
+      player.width,
+      player.height
+    );
+  }
 }
 
 // --- MOVE LANES ---
