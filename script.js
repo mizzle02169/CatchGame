@@ -13,8 +13,8 @@ carImg.onload = () => {
 };
 
 const player = {
-  width: 30,
-  height: 50,
+  width: 20,
+  height: 40,
   x: lanes[currentLane],
   y: canvas.height - 40, // temporary, will adjust below
 };
@@ -31,7 +31,7 @@ function gameLoop() {
 // --- UPDATE ---
 function update() {
   player.x = lanes[currentLane];
-  player.y = canvas.height - player.height - 20;
+  player.y = canvas.height - player.height - 40;
 }
 
 // --- DRAW ---
